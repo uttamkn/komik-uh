@@ -24,9 +24,8 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     // try {
-    //   const response = await fetch("/api/signup", {
+    //   const response = await fetch("url", {
     //     method: "POST",
     //     headers: {
     //       "Content-Type": "application/json",
@@ -35,11 +34,13 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
     //   });
 
     //   if (!response.ok) {
-    //     throw new Error("User already exists");
+    //     throw new Error("Invalid credentials");
     //   }
 
     //   const data = await response.json();
-    //   //save token
+    //   localStorage.setItem("token", data.token);
+    //   window.location.href = "/home";
+    //   console.log(data);
     // } catch (error) {
     //   setError((error as Error).message);
     // }

@@ -34,24 +34,24 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
       setError("");
     }
 
-    try {
-      const response = await fetch("/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    // try {
+    //   const response = await fetch("url", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(formData),
+    //   });
 
-      if (!response.ok) {
-        throw new Error("User already exists");
-      }
+    //   if (!response.ok) {
+    //     throw new Error("User already exists");
+    //   }
 
-      const data = await response.json();
-      //save token
-    } catch (error) {
-      setError((error as Error).message);
-    }
+    //   const data = await response.json();
+    //   console.log(data);
+    // } catch (error) {
+    //   setError((error as Error).message);
+    // }
   };
 
   return (
