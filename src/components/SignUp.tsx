@@ -1,0 +1,133 @@
+import { ChangeEvent, useState } from "react";
+import "./styles/inputTag.css";
+
+type FormData = {
+  username: string;
+  email: string;
+  password: string;
+  confirmPass: string;
+};
+
+type SignUpProps = {
+  switchToSignIn: () => void;
+};
+
+const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
+  const [formData, setFormData] = useState<FormData>({
+    username: "",
+    email: "",
+    password: "",
+    confirmPass: "",
+  });
+  const [error, setError] = useState<string>("");
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (formData.password !== formData.confirmPass) {
+      setError("Passwords do not match");
+    } else {
+      setError("");
+    }
+
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("User already exists");
+      }
+
+      const data = await response.json();
+      //save token
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
+  return (
+    <div className="w-full flex flex-col pl-10 pt-10 pr-10 pb-3 justify-center items-center bg-secondary gap-5 rounded-md border border-primary shadow-md text-primary">
+      <h1 className="font-heading text-4xl mb-2 underline text-primary cursor-default">
+        {" "}
+        REGISTER NOW{" "}
+      </h1>
+
+      <form className="flex flex-col gap-5 w-full" onSubmit={handleSubmit}>
+        <label htmlFor="username">
+          Username
+          <input
+            type="text"
+            name="username"
+            placeholder="Elon"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label htmlFor="email">
+          Email
+          <input
+            type="email"
+            name="email"
+            placeholder="musk@tesla.com"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label htmlFor="password">
+          Password
+          <input
+            type="password"
+            name="password"
+            pattern=".{8,}"
+            placeholder="Password (8 characters or more)"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label htmlFor="confirmPass">
+          Confirm password
+          <input
+            type="password"
+            name="confirmPass"
+            value={formData.confirmPass}
+            onChange={handleChange}
+            placeholder="Confirm password"
+            required
+          />
+        </label>
+        {error && <div className="text-center text-red-600">*{error}*</div>}
+        <div className="w-100 text-center text-sm italic font-light text-primary cursor-default">
+          Welcome to the world of fantasy
+        </div>
+        <button
+          className="text-secondary w-full bg-primary rounded p-2 shadow-lg active:shadow-none"
+          type="submit"
+        >
+          Sign Up
+        </button>
+      </form>
+      <div className="w-full">
+        Already have an account?{" "}
+        <button className="font-semibold" onClick={switchToSignIn}>
+          Sign in
+        </button>
+      </div>
+    </div>
+  );
+};
+export default SignUp;
