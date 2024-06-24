@@ -34,29 +34,29 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
       setError("");
     }
 
-    // try {
-    //   const response = await fetch("url", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
+    try {
+      const response = await fetch("url", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    //   if (!response.ok) {
-    //     throw new Error("User already exists");
-    //   }
+      if (!response.ok) {
+        throw new Error("User already exists");
+      }
 
-    //   const data = await response.json();
-    //   console.log(data);
-    // } catch (error) {
-    //   setError((error as Error).message);
-    // }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      setError((error as Error).message);
+    }
   };
 
   return (
-    <div className="w-full flex flex-col pl-10 pt-10 pr-10 pb-3 justify-center items-center bg-secondary gap-5 rounded-md border border-primary shadow-md text-primary">
-      <h1 className="font-heading text-4xl mb-2 underline text-primary cursor-default">
+    <div className="w-96 flex flex-col pl-10 pt-10 pr-10 pb-3 justify-center items-center bg-secondary gap-5 rounded-md border border-primary shadow-md text-primary">
+      <h1 className="font-heading text-4xl mb-2 text-primary cursor-default">
         {" "}
         REGISTER NOW{" "}
       </h1>

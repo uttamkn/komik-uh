@@ -4,9 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#CC313D",
-        secondary: "#F7C5CC",
-        tertiary: "#FF6347",
+        primary: "#000000",
+        secondary: "#ffffff",
       },
       fontFamily: {
         heading: ["Bricolage Grotesque"],

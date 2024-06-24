@@ -24,31 +24,31 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // try {
-    //   const response = await fetch("url", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
+    try {
+      const response = await fetch("url", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    //   if (!response.ok) {
-    //     throw new Error("Invalid credentials");
-    //   }
+      if (!response.ok) {
+        throw new Error("Invalid credentials");
+      }
 
-    //   const data = await response.json();
-    //   localStorage.setItem("token", data.token);
-    //   window.location.href = "/home";
-    //   console.log(data);
-    // } catch (error) {
-    //   setError((error as Error).message);
-    // }
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      window.location.href = "/home";
+      console.log(data);
+    } catch (error) {
+      setError((error as Error).message);
+    }
   };
 
   return (
-    <div className="w-full flex flex-col pl-10 pt-10 pr-10 pb-3 justify-center items-center bg-secondary gap-5 rounded-md border border-primary shadow-md text-primary">
-      <h1 className="font-heading text-4xl mb-2 underline text-primary cursor-default">
+    <div className="w-96 flex flex-col pl-10 pt-10 pr-10 pb-3 justify-center items-center bg-secondary gap-5 rounded-md border border-primary text-primary shadow-md">
+      <h1 className="font-heading text-4xl mb-2j text-primary cursor-default">
         {" "}
         Welcome Back{" "}
       </h1>
@@ -87,7 +87,7 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
           className="text-secondary w-full bg-primary rounded p-2 shadow-lg active:shadow-none"
           type="submit"
         >
-          Sign Up
+          Sign in
         </button>
       </form>
       <div className="w-full">
@@ -99,4 +99,5 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
     </div>
   );
 };
+
 export default SignIn;
