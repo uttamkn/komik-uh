@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import "./styles/inputTag.css";
+import Input from "./ui/Input";
 
 type FormData = {
   username: string;
@@ -62,54 +62,46 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
       </h1>
 
       <form className="flex flex-col gap-5 w-full" onSubmit={handleSubmit}>
-        <label htmlFor="username">
-          Username
-          <input
-            type="text"
-            name="username"
-            placeholder="Elon"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <Input
+          label="Username"
+          type="text"
+          name="username"
+          placeholder="Elon"
+          value={formData.username}
+          onChange={handleChange}
+          required={true}
+        ></Input>
 
-        <label htmlFor="email">
-          Email
-          <input
-            type="email"
-            name="email"
-            placeholder="musk@tesla.com"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <Input
+          label="Email"
+          type="email"
+          name="email"
+          placeholder="musk@tesla.com"
+          value={formData.email}
+          onChange={handleChange}
+          required={true}
+        ></Input>
 
-        <label htmlFor="password">
-          Password
-          <input
-            type="password"
-            name="password"
-            pattern=".{8,}"
-            placeholder="Password (8 characters or more)"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <Input
+          label="Password"
+          type="password"
+          name="password"
+          placeholder="Must be at least 8 characters long"
+          value={formData.password}
+          onChange={handleChange}
+          required={true}
+        ></Input>
 
-        <label htmlFor="confirmPass">
-          Confirm password
-          <input
-            type="password"
-            name="confirmPass"
-            value={formData.confirmPass}
-            onChange={handleChange}
-            placeholder="Confirm password"
-            required
-          />
-        </label>
+        <Input
+          label="Confirm Password"
+          type="password"
+          name="confirmPass"
+          placeholder="Must match the password"
+          value={formData.confirmPass}
+          onChange={handleChange}
+          required={true}
+        ></Input>
+
         {error && <div className="text-center text-red-600">*{error}*</div>}
         <div className="w-100 text-center text-sm italic font-light text-primary cursor-default">
           Welcome to the world of fantasy

@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import "./styles/inputTag.css";
+import Input from "./ui/Input";
 
 type FormData = {
   email: string;
@@ -54,30 +54,25 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
       </h1>
 
       <form className="flex flex-col gap-5 w-full" onSubmit={handleSubmit}>
-        <label htmlFor="email">
-          Email
-          <input
-            type="email"
-            name="email"
-            placeholder="musk@tesla.com"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <Input
+          label="Email"
+          value={formData.email}
+          type="email"
+          name="email"
+          placeholder="musk@tesla.com"
+          required={true}
+          onChange={handleChange}
+        ></Input>
 
-        <label htmlFor="password">
-          Password
-          <input
-            type="password"
-            name="password"
-            pattern=".{8,}"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <Input
+          label="Password"
+          value={formData.password}
+          type="password"
+          name="password"
+          placeholder="********"
+          required={true}
+          onChange={handleChange}
+        ></Input>
 
         {error && <div className="text-center text-red-600">*{error}*</div>}
         <div className="w-100 text-center text-sm italic font-light text-primary cursor-default">
