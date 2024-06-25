@@ -3,7 +3,7 @@ import SignUp from "../components/SignUp";
 import { useState } from "react";
 
 const Auth: React.FC = () => {
-  const [isSignIn, setIsSignIn] = useState<boolean>(true);
+  const [isSignIn, setIsSignIn] = useState<boolean>(false);
 
   const switchToSignUp = () => {
     setIsSignIn(false);

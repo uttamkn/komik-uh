@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import Input from "./ui/Input";
+import { toast } from "react-hot-toast";
 
 type FormData = {
   username: string;
@@ -30,6 +31,7 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
     event.preventDefault();
     if (formData.password !== formData.confirmPass) {
       setError("Passwords do not match");
+      return;
     } else {
       setError("");
     }
@@ -45,10 +47,11 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
 
       if (!response.ok) {
         throw new Error("User already exists");
+      } else {
+        setFormData({ username: "", email: "", password: "", confirmPass: "" });
+        toast.success("User created successfully");
+        switchToSignIn();
       }
-
-      const data = await response.json();
-      console.log(data);
     } catch (error) {
       setError((error as Error).message);
     }

@@ -1,5 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import Input from "./ui/Input";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type FormData = {
   email: string;
@@ -11,6 +13,7 @@ type SignInProps = {
 };
 
 const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
@@ -35,12 +38,11 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
 
       if (!response.ok) {
         throw new Error("Invalid credentials");
+      } else {
+        setFormData({ email: "", password: "" });
+        toast.success("Welcome back!");
+        navigate("/home");
       }
-
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      window.location.href = "/home";
-      console.log(data);
     } catch (error) {
       setError((error as Error).message);
     }
