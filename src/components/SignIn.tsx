@@ -2,9 +2,10 @@ import { ChangeEvent, useState } from "react";
 import Input from "./ui/Input";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 type FormData = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -15,7 +16,7 @@ type SignInProps = {
 const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
-    email: "",
+    username: "",
     password: "",
   });
   const [error, setError] = useState<string>("");
@@ -28,23 +29,22 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await fetch("url", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Invalid credentials");
-      } else {
-        setFormData({ email: "", password: "" });
-        toast.success("Welcome back!");
-        navigate("/home");
-      }
+      const formBody = new URLSearchParams(formData as Record<string, string>);
+      const response = await axios.post("/token", formBody);
+      console.log(response);
+      setFormData({ username: "", password: "" });
+      toast.success("Welcome back!");
+      navigate("/home");
     } catch (error) {
-      setError((error as Error).message);
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(
+          "Request failed with status code:",
+          error.response.status
+        );
+        setError("Invalid credentials");
+      } else {
+        setError("An unexpected error occurred");
+      }
     }
   };
 
@@ -57,10 +57,10 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
 
       <form className="flex flex-col gap-5 w-full" onSubmit={handleSubmit}>
         <Input
-          label="Email"
-          value={formData.email}
-          type="email"
-          name="email"
+          label="Username"
+          value={formData.username}
+          type="text"
+          name="username"
           placeholder="musk@tesla.com"
           required={true}
           onChange={handleChange}

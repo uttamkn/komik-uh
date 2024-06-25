@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
+import axios from "axios";
+
+axios.defaults.baseURL = "url";
+axios.defaults.withCredentials = true;
 
 const App: React.FC = () => {
   return (

@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import Input from "./ui/Input";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 type FormData = {
   username: string;
@@ -22,8 +23,9 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
   });
   const [error, setError] = useState<string>("");
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  const handleChange = ({
+    target: { name, value },
+  }: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -37,23 +39,24 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
     }
 
     try {
-      const response = await fetch("url", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const formBody = new URLSearchParams(formData as Record<string, string>);
+      const response = await axios.post("/sign_up", formBody);
+      console.log(response);
 
-      if (!response.ok) {
-        throw new Error("User already exists");
-      } else {
-        setFormData({ username: "", email: "", password: "", confirmPass: "" });
-        toast.success("User created successfully");
-        switchToSignIn();
-      }
+      // Success
+      setFormData({ username: "", email: "", password: "", confirmPass: "" });
+      toast.success("User created successfully");
+      switchToSignIn();
     } catch (error) {
-      setError((error as Error).message);
+      if (axios.isAxiosError(error) && error.response) {
+        console.error(
+          "Request failed with status code:",
+          error.response.status
+        );
+        setError("Invalid credentials");
+      } else {
+        setError("An unexpected error occurred");
+      }
     }
   };
 
