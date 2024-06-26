@@ -5,9 +5,8 @@ import axios from "axios";
 
 type FormData = {
   username: string;
-  email: string;
   password: string;
-  confirmPass: string;
+  confirm_password: string;
 };
 
 type SignUpProps = {
@@ -17,9 +16,8 @@ type SignUpProps = {
 const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
   const [formData, setFormData] = useState<FormData>({
     username: "",
-    email: "",
     password: "",
-    confirmPass: "",
+    confirm_password: "",
   });
   const [error, setError] = useState<string>("");
 
@@ -31,7 +29,7 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (formData.password !== formData.confirmPass) {
+    if (formData.password !== formData.confirm_password) {
       setError("Passwords do not match");
       return;
     } else {
@@ -39,12 +37,11 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
     }
 
     try {
-      const formBody = new URLSearchParams(formData as Record<string, string>);
-      const response = await axios.post("/sign_up", formBody);
+      const response = await axios.post("/sign_up", formData);
       console.log(response);
 
       // Success
-      setFormData({ username: "", email: "", password: "", confirmPass: "" });
+      setFormData({ username: "", password: "", confirm_password: "" });
       toast.success("User created successfully");
       switchToSignIn();
     } catch (error) {
@@ -79,16 +76,6 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
         ></Input>
 
         <Input
-          label="Email"
-          type="email"
-          name="email"
-          placeholder="musk@tesla.com"
-          value={formData.email}
-          onChange={handleChange}
-          required={true}
-        ></Input>
-
-        <Input
           label="Password"
           type="password"
           name="password"
@@ -101,9 +88,9 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
         <Input
           label="Confirm Password"
           type="password"
-          name="confirmPass"
+          name="confirm_password"
           placeholder="Must match the password"
-          value={formData.confirmPass}
+          value={formData.confirm_password}
           onChange={handleChange}
           required={true}
         ></Input>

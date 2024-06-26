@@ -29,9 +29,11 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      // Convert formData to URLSearchParams
       const formBody = new URLSearchParams(formData as Record<string, string>);
-      const response = await axios.post("/token", formBody);
-      console.log(response);
+      await axios.post("/token", formBody.toString());
+
+      // Handle successful sign in
       setFormData({ username: "", password: "" });
       toast.success("Welcome back!");
       navigate("/home");
