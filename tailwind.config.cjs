@@ -11,7 +11,9 @@ module.exports = {
         secondary: "#ffffff",
       },
       fontFamily: {
-        heading: ["Bricolage Grotesque"],
+        heading2: ["Bricolage Grotesque"],
+        roboto: ["Roboto"],
+        heading: ["Bento"],
       },
       inset: {
         "2/10": "20%",
