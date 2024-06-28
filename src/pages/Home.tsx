@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 import toast from "react-hot-toast";
+import Navbar from "../components/Navbar";
 
 const Home: React.FC = () => {
   const { user, loading }: { user: any; loading: boolean } = useAuth();
@@ -21,8 +22,8 @@ const Home: React.FC = () => {
   }, [loading, user, navigate]);
 
   return (
-    <div>
-      <h1>Home</h1>
+    <div style={{ minHeight: "200vh" }} className="flex flex-col">
+      <Navbar />
     </div>
   );
 };

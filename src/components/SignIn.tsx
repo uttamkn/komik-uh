@@ -53,7 +53,7 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
 
   return (
     <div className="w-96 flex flex-col pl-10 pt-10 pr-10 pb-3 justify-center  bg-secondary gap-5 rounded-md border border-primary text-primary shadow-md">
-      <h1 className="font-heading font-bold text-4xl mb-2j text-primary cursor-default">
+      <h1 className="font-heading2 font-bold text-4xl mb-2j text-primary cursor-default">
         {" "}
         Hello,<br></br>Welcome Back{" "}
       </h1>

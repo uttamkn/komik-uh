@@ -37,8 +37,7 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
     }
 
     try {
-      const response = await axios.post("/sign_up", formData);
-      console.log(response);
+      await axios.post("/sign_up", formData);
 
       // Success
       setFormData({ username: "", password: "", confirm_password: "" });
@@ -59,9 +58,9 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
 
   return (
     <div className="w-96 flex flex-col pl-10 pt-10 pr-10 pb-3 justify-center bg-secondary gap-5 rounded-md border border-primary shadow-md text-primary">
-      <h1 className="font-heading font-bold text-4xl mb-2 text-primary cursor-default">
+      <h1 className="font-heading2 font-bold text-4xl mb-2 text-primary cursor-default">
         {" "}
-        REGISTER NOW{" "}
+        Register Now{" "}
       </h1>
 
       <form className="flex flex-col gap-5 w-full" onSubmit={handleSubmit}>
