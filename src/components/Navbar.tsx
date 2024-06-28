@@ -5,6 +5,11 @@ const Navbar: React.FC = () => {
     // Search functionality
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    window.location.reload();
+  };
+
   return (
     // TODO: Create an image carousel for the background
     <div className="relative min-h-80 bg-hero-image bg-center">
@@ -24,7 +29,10 @@ const Navbar: React.FC = () => {
           <button className="bg-gray-800 py-2 px-4 rounded-lg opacity-85">
             Profile
           </button>
-          <button className="bg-gray-800 py-2 px-4 rounded-lg opacity-85">
+          <button
+            className="bg-gray-800 py-2 px-4 rounded-lg opacity-85"
+            onClick={handleLogout}
+          >
             Logout
           </button>
         </div>
