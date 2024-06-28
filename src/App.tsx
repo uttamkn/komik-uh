@@ -10,9 +10,8 @@ import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import axios from "axios";
 import { UserContextProvider } from "./context/UserContext";
-import ProtectedRoute from "./components/ProtectedRoute";
 
-axios.defaults.baseURL = "url";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 const App: React.FC = () => {
@@ -21,12 +20,9 @@ const App: React.FC = () => {
       <Router>
         <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
         <Routes>
-          <Route path="/" element={<Auth />} />
-          <Route
-            path="/home"
-            element={<ProtectedRoute component={<Home />} />}
-          />
-          <Route path="*" element={<Navigate to="/home" />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
     </UserContextProvider>

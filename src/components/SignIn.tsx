@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import Input from "./ui/Input";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/UserContext";
 import axios from "axios";
 
 type FormData = {
@@ -15,6 +15,7 @@ type SignInProps = {
 
 const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
   const navigate = useNavigate();
+  const { updateUser } = useAuth();
   const [formData, setFormData] = useState<FormData>({
     username: "",
     password: "",
@@ -31,12 +32,12 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
     try {
       // Convert formData to URLSearchParams
       const formBody = new URLSearchParams(formData as Record<string, string>);
-      await axios.post("/token", formBody.toString());
 
-      // Handle successful sign in
+      const { data } = await axios.post("/token", formBody.toString());
       setFormData({ username: "", password: "" });
-      toast.success("Welcome back!");
-      navigate("/home");
+      updateUser(data.user);
+      localStorage.setItem("user", JSON.stringify(data));
+      navigate("/");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         console.error(
@@ -51,10 +52,10 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
   };
 
   return (
-    <div className="w-96 flex flex-col pl-10 pt-10 pr-10 pb-3 justify-center items-center bg-secondary gap-5 rounded-md border border-primary text-primary shadow-md">
-      <h1 className="font-heading text-4xl mb-2j text-primary cursor-default">
+    <div className="w-96 flex flex-col pl-10 pt-10 pr-10 pb-3 justify-center  bg-secondary gap-5 rounded-md border border-primary text-primary shadow-md">
+      <h1 className="font-heading font-bold text-4xl mb-2j text-primary cursor-default">
         {" "}
-        Welcome Back{" "}
+        Hello,<br></br>Welcome Back{" "}
       </h1>
 
       <form className="flex flex-col gap-5 w-full" onSubmit={handleSubmit}>
@@ -63,7 +64,7 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
           value={formData.username}
           type="text"
           name="username"
-          placeholder="musk@tesla.com"
+          placeholder="musk"
           required={true}
           onChange={handleChange}
         ></Input>
