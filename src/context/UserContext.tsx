@@ -1,13 +1,8 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { parseToken } from "../api/utils";
 
 const UserContext = createContext<any>({});
-
-type Token = {
-  access_token: string;
-  token_type: string;
-  user: any;
-};
 
 export function UserContextProvider({
   children,
@@ -19,21 +14,7 @@ export function UserContextProvider({
 
   useEffect(() => {
     const tokenString = localStorage.getItem("user");
-    let token: Token | null = null;
-
-    if (tokenString) {
-      try {
-        token = JSON.parse(tokenString) as Token;
-        // Validate the structure of the token
-        if (!token["access_token"] || !token.token_type) {
-          throw new Error("Invalid token structure");
-        }
-      } catch (error) {
-        console.error("Failed to parse token:", error);
-        token = null;
-      }
-    }
-
+    let token = parseToken(tokenString || "");
     if (!user) {
       axios
         .get("/user", {
