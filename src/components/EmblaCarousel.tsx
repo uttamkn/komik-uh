@@ -11,7 +11,7 @@ export function EmblaCarousel() {
     <div className="overflow-hidden w-full h-full" ref={emblaRef}>
       <div className="flex">
         <div className="flex-none min-w-0 w-full">
-          <img src={carouselImg1} alt="carouselImg1" />
+          <img className="w-full" src={carouselImg1} alt="carouselImg1" />
         </div>
         <div className="flex-none min-w-0 w-full">
           <img src={carouselImg2} alt="carouselImg2" />
