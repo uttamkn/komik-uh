@@ -37,7 +37,7 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
     }
 
     try {
-      await axios.post("/sign_up", formData);
+      await axios.put("/sign_up", formData);
 
       // Success
       setFormData({ username: "", password: "", confirm_password: "" });
