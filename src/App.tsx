@@ -1,8 +1,7 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
+  createBrowserRouter,
+  RouterProvider,
   Navigate,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
@@ -15,16 +14,24 @@ axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 const App: React.FC = () => {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/auth",
+      element: <Auth />,
+    },
+    {
+      path: "*",
+      element: <Navigate to="/" />,
+    },
+  ]);
   return (
     <UserContextProvider>
-      <Router>
-        <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
-        <Routes>
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Router>
+      <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
+      <RouterProvider router={router} />
     </UserContextProvider>
   );
 };
