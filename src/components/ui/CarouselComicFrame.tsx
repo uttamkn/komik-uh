@@ -12,7 +12,7 @@ const CarouselComicFrame = ({ src, alt, pos }: FrameProps) => {
         transform: `rotateY(calc(${pos} * 45deg)) translateZ(18rem)`,
       }}
     >
-      <img src={src} alt={alt} className="w-full h-full object-conver" />
+      <img src={src} alt={alt} className="w-full h-full object-cover" />
     </div>
   );
 };
