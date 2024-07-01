@@ -1,4 +1,3 @@
-import { EmblaCarousel } from "./EmblaCarousel";
 import Input from "./ui/Input";
 
 const Navbar: React.FC = () => {
@@ -12,7 +11,6 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    // TODO: Create an image carousel for the background
     <div className="relative min-h-96 bg-hero-image bg-center">
       <nav className="z-10 flex fixed items-center w-full text-primary p-4 backdrop-blur-sm mt-1">
         <div className="font-heading font-extrabold text-4xl mr-auto">
@@ -38,9 +36,6 @@ const Navbar: React.FC = () => {
           </button>
         </div>
       </nav>
-      <div className="absolute w-full h-full flex justify-center items-center">
-        <EmblaCarousel />
-      </div>
     </div>
   );
 };
