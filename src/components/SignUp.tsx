@@ -2,19 +2,14 @@ import { ChangeEvent, useState } from "react";
 import Input from "./ui/Input";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-
-type FormData = {
-  username: string;
-  password: string;
-  confirm_password: string;
-};
+import { UserSignUp } from "../types.ts";
 
 type SignUpProps = {
   switchToSignIn: () => void;
 };
 
 const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<UserSignUp>({
     username: "",
     password: "",
     confirm_password: "",

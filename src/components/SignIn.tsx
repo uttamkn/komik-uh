@@ -3,11 +3,7 @@ import Input from "./ui/Input";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 import axios from "axios";
-
-type FormData = {
-  username: string;
-  password: string;
-};
+import { UserSignIn } from "../types.ts";
 
 type SignInProps = {
   switchToSignUp: () => void;
@@ -16,7 +12,7 @@ type SignInProps = {
 const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
   const navigate = useNavigate();
   const { updateUser } = useAuth();
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<UserSignIn>({
     username: "",
     password: "",
   });
