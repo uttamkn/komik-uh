@@ -1,5 +1,5 @@
 import rotatingImage1 from "../assets/images/rotatingImage1.jpg";
-import ComicFrame from "./ui/CarouselComicFrame";
+import ComicCard from "./ui/CarouselComicCard";
 
 const Carousel: React.FC = () => {
   return (
@@ -13,14 +13,14 @@ const Carousel: React.FC = () => {
           left: "calc(50% - 5rem)",
         }}
       >
-        <ComicFrame src={rotatingImage1} alt="img" pos={0} />
-        <ComicFrame src={rotatingImage1} alt="img" pos={1} />
-        <ComicFrame src={rotatingImage1} alt="img" pos={2} />
-        <ComicFrame src={rotatingImage1} alt="img" pos={3} />
-        <ComicFrame src={rotatingImage1} alt="img" pos={4} />
-        <ComicFrame src={rotatingImage1} alt="img" pos={5} />
-        <ComicFrame src={rotatingImage1} alt="img" pos={6} />
-        <ComicFrame src={rotatingImage1} alt="img" pos={7} />
+        <ComicCard src={rotatingImage1} alt="img" pos={0} />
+        <ComicCard src={rotatingImage1} alt="img" pos={1} />
+        <ComicCard src={rotatingImage1} alt="img" pos={2} />
+        <ComicCard src={rotatingImage1} alt="img" pos={3} />
+        <ComicCard src={rotatingImage1} alt="img" pos={4} />
+        <ComicCard src={rotatingImage1} alt="img" pos={5} />
+        <ComicCard src={rotatingImage1} alt="img" pos={6} />
+        <ComicCard src={rotatingImage1} alt="img" pos={7} />
       </div>
       <div></div>
     </div>

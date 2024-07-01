@@ -4,7 +4,7 @@ type FrameProps = {
   pos: number;
 };
 
-const CarouselComicFrame = ({ src, alt, pos }: FrameProps) => {
+const CarouselComicComic = ({ src, alt, pos }: FrameProps) => {
   return (
     <div
       className="absolute inset-0"
@@ -17,4 +17,4 @@ const CarouselComicFrame = ({ src, alt, pos }: FrameProps) => {
   );
 };
 
-export default CarouselComicFrame;
+export default CarouselComicComic;
