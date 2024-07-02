@@ -25,8 +25,15 @@ const Navbar: React.FC = () => {
           />
         </div>
         <div className="flex ml-auto space-x-4 text-secondary font-roboto">
-          <button>Profile</button>
-          <button onClick={handleLogout}>Logout</button>
+          <button className="transform transition-transform duration-300 hover:-translate-y-2 hover:scale-110 active:scale-100">
+            Profile
+          </button>
+          <button
+            className="transform transition-transform duration-300 hover:-translate-y-2 hover:scale-110 active:scale-100"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
         </div>
       </nav>
     </div>
