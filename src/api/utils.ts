@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Token } from "../types.ts";
 
 export const parseToken = (tokenString: string): Token | null => {
@@ -16,4 +17,26 @@ export const parseToken = (tokenString: string): Token | null => {
   }
 
   return token;
+};
+
+export const getThumbnailUrl = async (comicId: number): Promise<string> => {
+  let url: string = "";
+  const tokenString = localStorage.getItem("user");
+  const token = parseToken(tokenString || "");
+
+  try {
+    const response = await axios.get(`/comics/thumbnail/${comicId}`, {
+      headers: {
+        Authorization: `Bearer ${token?.access_token}`,
+      },
+      responseType: "blob",
+    });
+
+    const blob = new Blob([response.data], { type: "image/jpeg" });
+    url = URL.createObjectURL(blob);
+  } catch (error) {
+    console.error("Error fetching thumbnail:", error);
+  }
+
+  return url;
 };

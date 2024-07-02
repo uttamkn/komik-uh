@@ -18,18 +18,9 @@ module.exports = {
       inset: {
         "2/10": "20%",
       },
-      keyframes: {
-        autoRotate: {
-          "0%": {
-            transform: "perspective(40rem) rotateX(-18deg) rotateY(0deg)",
-          },
-          "100%": {
-            transform: "perspective(40rem) rotateX(-18deg) rotateY(360deg)",
-          },
-        },
-      },
-      animation: {
-        autoRotate: "autoRotate 30s linear infinite",
+      boxShadow: {
+        "white-bottom":
+          "0 6px 8px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1)",
       },
     },
   },
