@@ -16,9 +16,9 @@ export type UserSignUp = {
   confirm_password: string;
 };
 
-// Token structure in local storage
-export type Token = {
+// Object structure in local storage
+export type LocalStorage = {
   access_token: string;
   token_type: string;
-  user: any;
+  user: any; //TODO: Define the user object
 };

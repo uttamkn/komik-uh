@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import Navbar from "../components/Navbar";
 import ComicsContainer from "../components/ComicsContainer";
 import axios from "axios";
-import { parseToken } from "../api/utils";
+import { getToken } from "../api/utils";
 import { Comic } from "../types.ts";
 
 const Home: React.FC = () => {
@@ -24,15 +24,13 @@ const Home: React.FC = () => {
         toast.success("Welcome back!");
       }
     }
-  }, [loading, user, navigate]);
+  }, [loading, user]);
 
   useEffect(() => {
     if (!user) return;
-    let token = parseToken(localStorage.getItem("user") || "");
-
     const fetchComics = axios.get("/comics", {
       headers: {
-        Authorization: `Bearer ${token?.access_token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
 

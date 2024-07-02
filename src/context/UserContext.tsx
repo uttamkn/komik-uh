@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { parseToken } from "../api/utils";
+import { getToken } from "../api/utils";
 
 const UserContext = createContext<any>({});
 
@@ -13,13 +13,11 @@ export function UserContextProvider({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const tokenString = localStorage.getItem("user");
-    let token = parseToken(tokenString || "");
     if (!user) {
       axios
         .get("/user", {
           headers: {
-            Authorization: `Bearer ${token?.access_token}`,
+            Authorization: `Bearer ${getToken()}`,
           },
         })
         .then(({ data }: { data: any }) => {

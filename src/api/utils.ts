@@ -1,11 +1,12 @@
 import axios from "axios";
-import { Token } from "../types.ts";
+import { LocalStorage } from "../types.ts";
 
-export const parseToken = (tokenString: string): Token | null => {
-  let token: Token | null = null;
+//parsing the object stored in the local storage
+export const getUser = (tokenString: string): LocalStorage | null => {
+  let token: LocalStorage | null = null;
   if (tokenString) {
     try {
-      token = JSON.parse(tokenString) as Token;
+      token = JSON.parse(tokenString) as LocalStorage;
       // Validate the structure of the token
       if (!token["access_token"] || !token.token_type) {
         throw new Error("Invalid token structure");
@@ -16,18 +17,21 @@ export const parseToken = (tokenString: string): Token | null => {
     }
   }
 
-  return token;
+  return token; //returns the object stored in the local storage
+};
+
+export const getToken = (): string => {
+  const tokenString = localStorage.getItem("user");
+  return getUser(tokenString || "")?.access_token || "";
 };
 
 export const getThumbnailUrl = async (comicId: number): Promise<string> => {
   let url: string = "";
-  const tokenString = localStorage.getItem("user");
-  const token = parseToken(tokenString || "");
 
   try {
     const response = await axios.get(`/comics/thumbnail/${comicId}`, {
       headers: {
-        Authorization: `Bearer ${token?.access_token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
       responseType: "blob",
     });
