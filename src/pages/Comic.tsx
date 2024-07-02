@@ -11,7 +11,7 @@ const Comic: React.FC = () => {
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const backend = import.meta.env.VITE_API_URL;
   const pdfurl = `${backend}/comics/id/${id}`;
-  const { CurrentPageLabel } = pageNavigationPluginInstance;
+  // const { CurrentPageLabel } = pageNavigationPluginInstance;
 
   useEffect(() => {
     return () => {
