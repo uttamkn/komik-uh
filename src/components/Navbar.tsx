@@ -1,7 +1,7 @@
 import Input from "./ui/Input";
 
 const Navbar: React.FC = () => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = () => {
     // Search functionality
   };
 
@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-96 bg-hero-image bg-center">
+    <div className="relative min-h-96 bg-hero-image bg-center shadow-white-bottom">
       <nav className="z-10 flex fixed items-center w-full text-primary p-4 backdrop-blur-sm mt-1">
         <div className="font-heading font-extrabold text-4xl mr-auto">
           KOMIK-UH
@@ -25,15 +25,8 @@ const Navbar: React.FC = () => {
           />
         </div>
         <div className="flex ml-auto space-x-4 text-secondary font-roboto">
-          <button className="bg-gray-800 py-2 px-4 rounded-lg opacity-85">
-            Profile
-          </button>
-          <button
-            className="bg-gray-800 py-2 px-4 rounded-lg opacity-85"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
+          <button>Profile</button>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       </nav>
     </div>
