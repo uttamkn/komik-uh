@@ -9,6 +9,7 @@ import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import axios from "axios";
 import { UserContextProvider } from "./context/UserContext";
+import Comic from "./pages/Comic";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
@@ -26,6 +27,10 @@ const App: React.FC = () => {
     {
       path: "*",
       element: <Navigate to="/" />,
+    },
+    {
+      path: "/comic/:id",
+      element: <Comic />,
     },
   ]);
   return (
