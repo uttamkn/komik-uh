@@ -15,7 +15,7 @@ export function UserContextProvider({
   useEffect(() => {
     if (!user) {
       axios
-        .get("/user", {
+        .get("/auth/user", {
           headers: {
             Authorization: `Bearer ${getToken()}`,
           },

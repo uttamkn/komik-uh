@@ -29,7 +29,7 @@ export const getThumbnailUrl = async (comicId: number): Promise<string> => {
   let url: string = "";
 
   try {
-    const response = await axios.get(`/comics/thumbnail/${comicId}`, {
+    const response = await axios.get(`/comics/thumbnails/${comicId}`, {
       headers: {
         Authorization: `Bearer ${getToken()}`,
       },

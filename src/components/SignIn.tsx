@@ -29,7 +29,7 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
       // Convert formData to URLSearchParams
       const formBody = new URLSearchParams(formData as Record<string, string>);
 
-      const { data } = await axios.post("/token", formBody.toString());
+      const { data } = await axios.post("/auth/token", formBody.toString());
       setFormData({ username: "", password: "" });
       updateUser(data.user);
       localStorage.setItem("user", JSON.stringify(data));
