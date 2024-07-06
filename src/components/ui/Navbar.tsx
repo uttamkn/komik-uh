@@ -1,8 +1,10 @@
 import Input from "./Input";
 import { useNavigate } from "react-router-dom";
 import Gravatar from "react-gravatar";
+import { useAuth } from "../../context/UserContext";
 
 const Navbar: React.FC = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = () => {
@@ -40,7 +42,7 @@ const Navbar: React.FC = () => {
       </div>
       <div className="flex ml-auto space-x-4 text-secondary font-roboto">
         <Gravatar
-          email="uttamkn15@gmail.com"
+          email={user?.email || ""}
           size={40}
           className="rounded-full"
         />

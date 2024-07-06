@@ -26,7 +26,7 @@ const Profile: React.FC = () => {
       <div className="flex justify-center items-center h-full">
         <div className=" flex flex-col items-center gap-4 p-5 rounded-lg shadow-md">
           <Gravatar
-            email="uttamkn15@gmail.com"
+            email={user?.email || ""}
             size={400}
             className="rounded-full"
           />
