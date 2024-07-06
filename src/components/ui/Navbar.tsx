@@ -1,5 +1,6 @@
 import Input from "./Input";
 import { useNavigate } from "react-router-dom";
+import Gravatar from "react-gravatar";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -12,11 +13,23 @@ const Navbar: React.FC = () => {
     localStorage.removeItem("token");
     navigate("/auth");
   };
+
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+
+  const handleHome = () => {
+    navigate("/");
+  };
+
   return (
     <nav className="z-10 flex fixed items-center w-full text-primary p-4 backdrop-blur-sm mt-1">
-      <div className="font-heading font-extrabold text-4xl mr-auto">
+      <button
+        className="font-heading font-extrabold text-4xl mr-auto"
+        onClick={handleHome}
+      >
         KOMIK-UH
-      </div>
+      </button>
       <div className="min-w-48">
         <Input
           type="text"
@@ -26,7 +39,15 @@ const Navbar: React.FC = () => {
         />
       </div>
       <div className="flex ml-auto space-x-4 text-secondary font-roboto">
-        <button className="transform transition-transform duration-300 hover:-translate-y-2 hover:scale-110 active:scale-100">
+        <Gravatar
+          email="uttamkn15@gmail.com"
+          size={40}
+          className="rounded-full"
+        />
+        <button
+          className="transform transition-transform duration-300 hover:-translate-y-2 hover:scale-110 active:scale-100"
+          onClick={handleProfile}
+        >
           Profile
         </button>
         <button
