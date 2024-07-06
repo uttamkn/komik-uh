@@ -12,6 +12,7 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
   const [formData, setFormData] = useState<UserSignUp>({
     username: "",
     password: "",
+    email: "",
     confirm_password: "",
   });
   const [error, setError] = useState<string>("");
@@ -35,7 +36,12 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
       await axios.put("/auth/sign_up", formData);
 
       // Success
-      setFormData({ username: "", password: "", confirm_password: "" });
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+      });
       toast.success("User created successfully");
       switchToSignIn();
     } catch (error) {
@@ -65,6 +71,16 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
           name="username"
           placeholder="Elon"
           value={formData.username}
+          onChange={handleChange}
+          required={true}
+        ></Input>
+
+        <Input
+          label="Email"
+          type="email"
+          name="email"
+          placeholder="elon@tesla.com"
+          value={formData.email}
           onChange={handleChange}
           required={true}
         ></Input>

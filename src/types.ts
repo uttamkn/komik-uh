@@ -12,6 +12,7 @@ export type UserSignIn = {
 
 export type UserSignUp = {
   username: string;
+  email: string;
   password: string;
   confirm_password: string;
 };
