@@ -32,7 +32,7 @@ const Profile: React.FC = () => {
           />
           <div className="grid gap-1 text-center">
             <div className="text-lg font-medium">{user?.username}</div>
-            <div className="text-sm font-light">e@</div>
+            <div className="text-sm font-light">{user?.email}</div>
           </div>
           <div>
             <hr />
