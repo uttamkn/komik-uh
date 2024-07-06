@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 import toast from "react-hot-toast";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/ui/Navbar";
 import ComicsContainer from "../components/ComicsContainer";
 import axios from "axios";
 import { getToken } from "../api/utils";
@@ -48,6 +48,7 @@ const Home: React.FC = () => {
   return (
     <div style={{ minHeight: "150vh" }} className="flex flex-col">
       <Navbar />
+      <div className="relative min-h-96 bg-hero-image bg-center shadow-white-bottom"></div>
       <ComicsContainer comics={comics} />
     </div>
   );
