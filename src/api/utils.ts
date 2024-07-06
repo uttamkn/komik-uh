@@ -1,28 +1,18 @@
 import axios from "axios";
-import { LocalStorage } from "../types.ts";
 
-//parsing the object stored in the local storage
-export const getUser = (tokenString: string): LocalStorage | null => {
-  let token: LocalStorage | null = null;
+export const getToken = (): string => {
+  const tokenString = localStorage.getItem("token");
+  let token: string | null = null;
   if (tokenString) {
     try {
-      token = JSON.parse(tokenString) as LocalStorage;
-      // Validate the structure of the token
-      if (!token["access_token"] || !token.token_type) {
-        throw new Error("Invalid token structure");
-      }
+      token = JSON.parse(tokenString);
     } catch (error) {
       console.error("Failed to parse token:", error);
       token = null;
     }
   }
 
-  return token; //returns the object stored in the local storage
-};
-
-export const getToken = (): string => {
-  const tokenString = localStorage.getItem("user");
-  return getUser(tokenString || "")?.access_token || "";
+  return token || "";
 };
 
 export const getThumbnailUrl = async (comicId: number): Promise<string> => {
