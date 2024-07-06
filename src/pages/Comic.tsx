@@ -1,3 +1,6 @@
+import { useAuth } from "../context/UserContext";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Viewer, Worker, ProgressBar } from "@react-pdf-viewer/core";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
@@ -7,12 +10,25 @@ import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
 import { useEffect } from "react";
 
 const Comic: React.FC = () => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const backend = import.meta.env.VITE_API_URL;
   const pdfurl = `${backend}/comics/id/${id}`;
-  // const { CurrentPageLabel } = pageNavigationPluginInstance;
 
+  useEffect(() => {
+    if (loading) {
+      toast.loading("Loading...");
+    } else {
+      toast.dismiss();
+      if (!user) {
+        navigate("/auth");
+      }
+    }
+  }, [loading, user]);
+
+  // const { CurrentPageLabel } = pageNavigationPluginInstance;
   useEffect(() => {
     return () => {
       console.log("Current page label:");
