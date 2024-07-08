@@ -21,10 +21,11 @@ const Profile: React.FC = () => {
   }, [loading, user]);
 
   return (
-    <div className="bg-gray-300 h-screen font-roboto">
-      <Navbar />
-      <div className="flex justify-center items-center h-full">
-        <div className=" flex flex-col items-center gap-4 p-5 rounded-lg shadow-md">
+    <div className="bg-secondary h-screen font-roboto">
+      <Navbar isProfile={true} />
+      <div className="relative min-h-96 bg-hero-image bg-center shadow-white-bottom"></div>
+      <div className="absolute top-36 left-1/3 flex justify-center items-center backdrop-blur-md shadow-md rounded-lg p-7">
+        <div className=" flex flex-col items-center gap-4 z-10">
           <Gravatar
             email={user?.email || ""}
             size={400}

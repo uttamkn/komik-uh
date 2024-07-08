@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Gravatar from "react-gravatar";
 import { useAuth } from "../../context/UserContext";
 
-const Navbar: React.FC = () => {
+type navProps = {
+  isProfile?: boolean | false;
+};
+
+const Navbar: React.FC<navProps> = ({ isProfile }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -32,14 +36,16 @@ const Navbar: React.FC = () => {
       >
         KOMIK-UH
       </button>
-      <div className="min-w-48">
-        <Input
-          type="text"
-          placeholder="Search"
-          onChange={handleChange}
-          search={true}
-        />
-      </div>
+      {!isProfile && (
+        <div className="min-w-48">
+          <Input
+            type="text"
+            placeholder="Search"
+            onChange={handleChange}
+            search={true}
+          />
+        </div>
+      )}
       <div className="flex ml-auto space-x-4 text-secondary font-roboto">
         <Gravatar
           email={user?.email || ""}
