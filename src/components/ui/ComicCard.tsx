@@ -27,7 +27,7 @@ const ComicCard: React.FC<ComicCardProps> = ({ comic }) => {
     <div className="flex">
       <button
         onClick={handleClick}
-        className="flex border w-40 h-50 flex-col items-center justify-center shadow-lg rounded bg-slate-50 transform transition-transform duration-300 hover:scale-110 active:scale-100"
+        className="flex border w-40 h-50 flex-col items-center justify-center shadow-lg rounded bg-slate-50 transform transition-transform duration-300 hover:scale-105 active:scale-100"
       >
         <img src={imgUrl} alt="/" className="w-full h-full" />
         <div>{comic.title}</div>
