@@ -7,7 +7,8 @@ import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 import { getToken } from "../api/utils";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
+import Comments from "../components/Comments";
 
 const Comic: React.FC = () => {
   const { user, loading } = useAuth();
@@ -17,7 +18,7 @@ const Comic: React.FC = () => {
   const backend = import.meta.env.VITE_API_URL;
   const pdfurl = `${backend}/comics/id/${id}`;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (loading) {
       toast.loading("Loading...");
     } else {
@@ -28,14 +29,13 @@ const Comic: React.FC = () => {
     }
   }, [loading, user]);
 
-  // const { CurrentPageLabel } = pageNavigationPluginInstance;
-  useEffect(() => {
-    return () => {
-      console.log("Current page label:");
-      //TODO: Display the current page number
-    };
-  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
+  if (!user) {
+    return <div>Redirecting...</div>;
+  }
   return (
     <div className="">
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
@@ -52,7 +52,9 @@ const Comic: React.FC = () => {
           />
         </div>
       </Worker>
-      <div>//TODO: Add the Comments component here</div>
+      <div>
+        <Comments bookid={id} userid={user.id} />
+      </div>
     </div>
   );
 };

@@ -22,3 +22,12 @@ export type User = {
   username: string;
   email: string;
 };
+
+export type Comment_t = {
+  comment: {
+    id: number;
+    content: string;
+    timestamp: string;
+  };
+  username: string;
+};
