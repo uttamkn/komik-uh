@@ -53,13 +53,13 @@ const Navbar: React.FC<navProps> = ({ isProfile }) => {
           className="rounded-full"
         />
         <button
-          className="transform transition-transform duration-300 hover:-translate-y-2 hover:scale-110 active:scale-100"
+          className="transform transition-transform duration-300 hover:-translate-y-1 hover:scale-105 active:scale-100"
           onClick={handleProfile}
         >
           Profile
         </button>
         <button
-          className="transform transition-transform duration-300 hover:-translate-y-2 hover:scale-110 active:scale-100"
+          className="transform transition-transform duration-300 hover:-translate-y-1 hover:scale-105 active:scale-100"
           onClick={handleLogout}
         >
           Logout
