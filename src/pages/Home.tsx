@@ -6,10 +6,10 @@ import Navbar from "../components/ui/Navbar";
 import ComicsContainer from "../components/ComicsContainer";
 import axios from "axios";
 import { getToken } from "../api/utils";
-import { Comic } from "../types.ts";
+import { Comic, User } from "../types.ts";
 
 const Home: React.FC = () => {
-  const { user, loading }: { user: any; loading: boolean } = useAuth();
+  const { user, loading }: { user: User; loading: boolean } = useAuth();
   const [comics, setComics] = useState<Comic[]>([]);
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
       if (!user) {
         navigate("/auth");
       } else {
-        toast.success("Welcome back!");
+        toast.success(`Welcome, ${user.username}!`);
       }
     }
   }, [loading, user]);
@@ -36,7 +36,6 @@ const Home: React.FC = () => {
 
     fetchComics
       .then((res) => {
-        console.log(res.data);
         setComics(res.data);
       })
       .catch((err) => {
@@ -46,7 +45,7 @@ const Home: React.FC = () => {
   }, [user]);
 
   return (
-    <div style={{ minHeight: "150vh" }} className="flex flex-col">
+    <div className="flex flex-col">
       <Navbar />
       <div className="relative min-h-96 bg-hero-image bg-center shadow-white-bottom"></div>
       <ComicsContainer comics={comics} />

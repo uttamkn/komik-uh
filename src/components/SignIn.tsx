@@ -31,7 +31,11 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
 
       const { data } = await axios.post("/auth/token", formBody.toString());
       setFormData({ username: "", password: "" });
-      updateUser(data.user);
+      updateUser({
+        id: data.user.id,
+        username: data.user.username,
+        email: data.user.email,
+      });
       localStorage.setItem("token", JSON.stringify(data.access_token));
       navigate("/");
     } catch (error) {

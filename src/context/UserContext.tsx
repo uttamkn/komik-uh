@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { getToken } from "../api/utils";
+import { User } from "../types";
 
 const UserContext = createContext<any>({});
 
@@ -9,26 +10,33 @@ export function UserContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) {
-      axios
-        .get("/auth/user", {
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-          },
-        })
-        .then(({ data }: { data: any }) => {
-          setUser(data);
-        })
-        .catch(() => setUser(null))
-        .finally(() => setLoading(false));
-    }
+    axios
+      .get("/auth/user", {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      .then((response: any) => {
+        setUser({
+          id: response.data.id,
+          username: response.data.username,
+          email: response.data.email,
+        });
+      })
+      .catch(() => {
+        console.log("Error fetching user");
+        setUser(null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
-  const updateUser = (userData: any) => {
+  const updateUser = (userData: User) => {
     setUser(userData);
   };
 
