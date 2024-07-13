@@ -2,7 +2,6 @@ import Input from "./Input";
 import { useNavigate } from "react-router-dom";
 import Gravatar from "react-gravatar";
 import { useAuth } from "../../context/UserContext";
-import { useState } from "react";
 
 type navProps = {
   isProfile?: boolean | false;
@@ -12,10 +11,8 @@ type navProps = {
 const Navbar: React.FC<navProps> = ({ isProfile, filterComics }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
     filterComics && filterComics(e.target.value);
   };
 
@@ -46,7 +43,6 @@ const Navbar: React.FC<navProps> = ({ isProfile, filterComics }) => {
             type="text"
             placeholder="Search"
             onChange={handleChange}
-            value={searchQuery}
             search={true}
           />
         </div>
