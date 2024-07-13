@@ -1,3 +1,4 @@
+//TODO: Add lazy loading for pages and error boundaries
 import React from "react";
 import {
   createBrowserRouter,

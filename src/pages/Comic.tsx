@@ -9,7 +9,6 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
 import { useLayoutEffect } from "react";
 import Comments from "../components/Comments";
-import { Progress } from "../../@/components/ui/progress";
 
 const Comic: React.FC = () => {
   const { user, loading } = useAuth();
@@ -53,7 +52,18 @@ const Comic: React.FC = () => {
           <Viewer
             fileUrl={pdfurl}
             renderLoader={(percentages) => (
-              <Progress value={percentages} className="w-[60%]" />
+              <div
+                style={{
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {percentages === 100
+                  ? "Loading completed!"
+                  : `Loading... ${percentages}%`}
+              </div>
             )}
             httpHeaders={{
               Authorization: `Bearer ${getToken()}`,
