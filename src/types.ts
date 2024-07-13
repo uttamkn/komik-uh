@@ -2,7 +2,6 @@ export type Comic = {
   id: number;
   title: string;
   author: string;
-  thumbnail: string;
 };
 
 export type UserSignIn = {
