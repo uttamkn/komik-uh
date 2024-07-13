@@ -4,17 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
-import { getToken } from "../api/utils";
+import { getToken, putCurrentPage, getCurrentPage } from "../api/utils";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import Comments from "../components/Comments";
+import Fallback from "../components/Fallback";
+import Loader from "../components/ui/Loader";
 
 const Comic: React.FC = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const pageNavigationPluginInstance = pageNavigationPlugin();
+  const [jumpToPage, setJumpToPage] = useState(0);
   const { CurrentPageLabel }: any = pageNavigationPluginInstance;
   const backend = import.meta.env.VITE_API_URL;
   const pdfurl = `${backend}/comics/id/${id}`;
@@ -26,20 +29,27 @@ const Comic: React.FC = () => {
       toast.dismiss();
       if (!user) {
         navigate("/auth");
+      } else {
+        getCurrentPage(user.id, parseInt(id as string))
+          .then((page) => {
+            setJumpToPage(page);
+          })
+          .catch(() => {
+            setJumpToPage(0);
+          });
       }
     }
   }, [loading, user]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   if (!user) {
-    return <div>Redirecting...</div>;
+    return <Fallback />;
   }
 
-  const handleClick = () => {
-    console.log(curPage);
+  const handleClick = async () => {
+    if (id === undefined) {
+      return;
+    }
+    await putCurrentPage(user.id, parseInt(id), curPage);
     navigate("/");
   };
 
@@ -52,22 +62,17 @@ const Comic: React.FC = () => {
           <Viewer
             fileUrl={pdfurl}
             renderLoader={(percentages) => (
-              <div
-                style={{
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+              <div className="flex items-center justify-center gap-5 min-h-screen text-center">
+                <Loader />
                 {percentages === 100
                   ? "Loading completed!"
-                  : `Loading... ${percentages}%`}
+                  : `Loading... ${Math.round(percentages)}%`}
               </div>
             )}
             httpHeaders={{
               Authorization: `Bearer ${getToken()}`,
             }}
+            initialPage={jumpToPage}
             plugins={[pageNavigationPluginInstance]}
           />
         </div>
