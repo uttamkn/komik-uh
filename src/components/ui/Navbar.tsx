@@ -2,17 +2,21 @@ import Input from "./Input";
 import { useNavigate } from "react-router-dom";
 import Gravatar from "react-gravatar";
 import { useAuth } from "../../context/UserContext";
+import { useState } from "react";
 
 type navProps = {
   isProfile?: boolean | false;
+  filterComics?: (searchQuery: string) => void;
 };
 
-const Navbar: React.FC<navProps> = ({ isProfile }) => {
+const Navbar: React.FC<navProps> = ({ isProfile, filterComics }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const handleChange = () => {
-    // Search functionality
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    filterComics && filterComics(e.target.value);
   };
 
   const handleLogout = () => {
@@ -37,11 +41,12 @@ const Navbar: React.FC<navProps> = ({ isProfile }) => {
         KOMIK-UH
       </button>
       {!isProfile && (
-        <div className="min-w-48">
+        <div className="flex min-w-48 gap-5">
           <Input
             type="text"
             placeholder="Search"
             onChange={handleChange}
+            value={searchQuery}
             search={true}
           />
         </div>

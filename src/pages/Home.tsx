@@ -11,6 +11,7 @@ import { Comic, User } from "../types.ts";
 const Home: React.FC = () => {
   const { user, loading }: { user: User; loading: boolean } = useAuth();
   const [comics, setComics] = useState<Comic[]>([]);
+  const [filteredComics, setFilteredComics] = useState<Comic[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const Home: React.FC = () => {
     fetchComics
       .then((res) => {
         setComics(res.data);
+        setFilteredComics(res.data);
       })
       .catch((err) => {
         console.log("Error fetching comics:");
@@ -44,11 +46,22 @@ const Home: React.FC = () => {
       });
   }, [user]);
 
+  const filterComics = (searchQuery: string) => {
+    if (searchQuery === "") {
+      setFilteredComics(comics);
+      return;
+    }
+    const filtered = comics.filter((comic) =>
+      comic.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredComics(filtered);
+  };
+
   return (
     <div className="flex flex-col">
-      <Navbar />
+      <Navbar filterComics={filterComics} />
       <div className="relative min-h-96 bg-hero-image bg-center shadow-white-bottom"></div>
-      <ComicsContainer comics={comics} />
+      <ComicsContainer comics={filteredComics} />
     </div>
   );
 };
