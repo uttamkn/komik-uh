@@ -8,3 +8,19 @@
   font-family: "Bento";
   src: url(/fonts/Bento-2OXaW.otf);
 }
+
+@layer components {
+  .loader {
+    @apply border-blue-500;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

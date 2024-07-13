@@ -1,44 +1,59 @@
-//TODO: Add lazy loading for pages and error boundaries
-import React from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
+import React, { Suspense, lazy } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import Auth from "./pages/Auth";
-import Home from "./pages/Home";
 import axios from "axios";
 import { UserContextProvider } from "./context/UserContext";
-import Comic from "./pages/Comic";
-import Profile from "./pages/Profile";
+import Error404 from "./components/Error404";
+import Fallback from "./components/Fallback";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
+
+const Home = lazy(() => import("./pages/Home"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Comic = lazy(() => import("./pages/Comic"));
+const Profile = lazy(() => import("./pages/Profile"));
 
 const App: React.FC = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Home />
+        </Suspense>
+      ),
     },
     {
       path: "/auth",
-      element: <Auth />,
-    },
-    {
-      path: "*",
-      element: <Navigate to="/" />,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Auth />
+        </Suspense>
+      ),
     },
     {
       path: "/comic/:id",
-      element: <Comic />,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Comic />
+        </Suspense>
+      ),
     },
     {
       path: "/profile",
-      element: <Profile />,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Profile />
+        </Suspense>
+      ),
+    },
+    {
+      path: "*",
+      element: <Error404 />,
     },
   ]);
+
   return (
     <UserContextProvider>
       <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
