@@ -2,12 +2,12 @@ import { useAuth } from "../context/UserContext";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { Viewer, Worker, ProgressBar } from "@react-pdf-viewer/core";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 import { getToken } from "../api/utils";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect } from "react";
 import Comments from "../components/Comments";
 import { Progress } from "../../@/components/ui/progress";
 
@@ -16,8 +16,6 @@ const Comic: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const pageNavigationPluginInstance = pageNavigationPlugin();
-  const [currentPage, setCurrentPage] = useState(0);
-  let curPage = 0;
   const { CurrentPageLabel }: any = pageNavigationPluginInstance;
   const backend = import.meta.env.VITE_API_URL;
   const pdfurl = `${backend}/comics/id/${id}`;
@@ -46,6 +44,7 @@ const Comic: React.FC = () => {
     navigate("/");
   };
 
+  let curPage = 0;
   return (
     <div className="">
       <button onClick={handleClick}>back</button>

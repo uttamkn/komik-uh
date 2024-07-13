@@ -24,13 +24,19 @@ const ComicCard: React.FC<ComicCardProps> = ({ comic }) => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex justify-center p-2">
       <button
         onClick={handleClick}
-        className="flex border w-40 h-50 flex-col items-center justify-center shadow-lg rounded bg-slate-50 transform transition-transform duration-300 hover:scale-105 active:scale-100"
+        className="border w-36 flex flex-col items-center justify-center shadow-lg rounded bg-slate-50"
       >
-        <img src={imgUrl} alt="/" className="w-full h-full" />
-        <div>{comic.title}</div>
+        <div className="relative w-full pb-[150%] bg-gray-200 rounded-t overflow-hidden">
+          <img
+            src={imgUrl}
+            alt={comic.title}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+        <div className="p-1 text-center">{comic.title}</div>
       </button>
     </div>
   );
