@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { UserContextProvider } from "./context/UserContext";
-import Error404 from "./components/Error404";
+import Error404 from "./pages/Error404";
 import Fallback from "./components/Fallback";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
