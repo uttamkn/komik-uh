@@ -12,7 +12,6 @@ const Comments: React.FC<{ bookid: string | undefined; userid: number }> = ({
   const [comment, setComment] = useState<string>("");
 
   useEffect(() => {
-    console.log(bookid);
     axios
       .get(`/comments/book/${bookid}`, {
         headers: { Authorization: `Bearer ${getToken()}` },

@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import Input from "./ui/Input";
+import Input from "./ui/Input.tsx";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 import axios from "axios";
@@ -84,7 +84,7 @@ const SignIn: React.FC<SignInProps> = ({ switchToSignUp }) => {
           Forgot password? Me too.
         </div>
         <button
-          className="text-secondary w-full bg-primary rounded p-2 shadow-lg active:shadow-none"
+          className="text-secondary w-full bg-primary rounded p-2 shadow-md active:shadow-none"
           type="submit"
         >
           Sign in

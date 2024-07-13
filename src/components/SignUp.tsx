@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import Input from "./ui/Input";
+import Input from "./ui/Input.tsx";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { UserSignUp } from "../types.ts";
@@ -110,7 +110,7 @@ const SignUp: React.FC<SignUpProps> = ({ switchToSignIn }) => {
           Welcome to the world of fantasy
         </div>
         <button
-          className="text-secondary w-full bg-primary rounded p-2 shadow-lg active:shadow-none"
+          className="text-secondary w-full bg-primary rounded p-2 shadow-md active:shadow-none"
           type="submit"
         >
           Sign Up

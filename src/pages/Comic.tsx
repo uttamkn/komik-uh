@@ -7,14 +7,18 @@ import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 import { getToken } from "../api/utils";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import Comments from "../components/Comments";
+import { Progress } from "../../@/components/ui/progress";
 
 const Comic: React.FC = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const pageNavigationPluginInstance = pageNavigationPlugin();
+  const [currentPage, setCurrentPage] = useState(0);
+  let curPage = 0;
+  const { CurrentPageLabel }: any = pageNavigationPluginInstance;
   const backend = import.meta.env.VITE_API_URL;
   const pdfurl = `${backend}/comics/id/${id}`;
 
@@ -36,14 +40,21 @@ const Comic: React.FC = () => {
   if (!user) {
     return <div>Redirecting...</div>;
   }
+
+  const handleClick = () => {
+    console.log(curPage);
+    navigate("/");
+  };
+
   return (
     <div className="">
+      <button onClick={handleClick}>back</button>
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-        <div style={{ height: "800px" }}>
+        <div style={{ height: "1000px" }}>
           <Viewer
             fileUrl={pdfurl}
             renderLoader={(percentages) => (
-              <ProgressBar progress={Math.round(percentages)} />
+              <Progress value={percentages} className="w-[60%]" />
             )}
             httpHeaders={{
               Authorization: `Bearer ${getToken()}`,
@@ -52,6 +63,11 @@ const Comic: React.FC = () => {
           />
         </div>
       </Worker>
+      <CurrentPageLabel>
+        {({ currentPage }: any) => {
+          curPage = currentPage;
+        }}
+      </CurrentPageLabel>
       <div>
         <Comments bookid={id} userid={user.id} />
       </div>

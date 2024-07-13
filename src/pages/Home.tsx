@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 import toast from "react-hot-toast";
-import Navbar from "../components/ui/Navbar";
+import Navbar from "../components/ui/Navbar.tsx";
 import ComicsContainer from "../components/ComicsContainer";
 import axios from "axios";
 import { getToken } from "../api/utils";
