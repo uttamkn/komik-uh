@@ -36,17 +36,9 @@ const Comments: React.FC<{ bookid: string | undefined; userid: number }> = ({
       book_id: parseInt(bookid as string),
       content: comment,
     };
-    console.log(newComment);
-    axios
-      .put(`/comments`, newComment, {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    await axios.put(`/comments`, newComment, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
   };
 
   return (
@@ -55,7 +47,7 @@ const Comments: React.FC<{ bookid: string | undefined; userid: number }> = ({
         <input
           type="text"
           onChange={handleChange}
-          placeholder="You can comment only once, choose wisely"
+          placeholder="Comment as many times as you want!"
           value={comment}
           className="w-full relative outline-none p-2 rounded-md"
         />
