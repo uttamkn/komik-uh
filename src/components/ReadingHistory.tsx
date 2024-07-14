@@ -17,7 +17,7 @@ const ReadingHistory: React.FC<ReadingHistoryProps> = ({
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md mt-3">
-      {readingProgress.length > 0 ? (
+      {readingProgress && readingProgress.length > 0 ? (
         readingProgress.map((progress) => {
           const comic = comics.find(
             (comic) => comic.id === progress.bookrepo_id
