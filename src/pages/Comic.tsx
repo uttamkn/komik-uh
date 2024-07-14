@@ -55,10 +55,18 @@ const Comic: React.FC = () => {
 
   let curPage = 0;
   return (
-    <div className="">
-      <button onClick={handleClick}>back</button>
+    <div className="container mx-auto p-4">
+      <button
+        className="mb-4 px-4 py-2 bg-primary text-secondary rounded"
+        onClick={handleClick}
+      >
+        Back
+      </button>
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-        <div style={{ height: "1000px" }}>
+        <div
+          style={{ height: "100vw" }}
+          className="border rounded-lg overflow-hidden"
+        >
           <Viewer
             fileUrl={pdfurl}
             renderLoader={(percentages) => (
@@ -77,12 +85,12 @@ const Comic: React.FC = () => {
           />
         </div>
       </Worker>
-      <CurrentPageLabel>
-        {({ currentPage }: any) => {
-          curPage = currentPage;
-        }}
-      </CurrentPageLabel>
-      <div>
+      <div className="mt-4">
+        <CurrentPageLabel>
+          {({ currentPage }: any) => {
+            curPage = currentPage;
+          }}
+        </CurrentPageLabel>
         <Comments bookid={id} userid={user.id} />
       </div>
     </div>

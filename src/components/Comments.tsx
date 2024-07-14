@@ -42,7 +42,7 @@ const Comments: React.FC<{ bookid: string | undefined; userid: number }> = ({
   };
 
   return (
-    <div className="flex flex-col w-4/5 m-auto mt-5">
+    <div className="flex flex-col w-full m-auto mt-5">
       <div className="flex border rounded-md mb-2">
         <input
           type="text"

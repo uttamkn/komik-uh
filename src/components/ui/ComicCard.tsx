@@ -36,7 +36,7 @@ const ComicCard: React.FC<ComicCardProps> = ({ comic }) => {
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
-        <div className="p-1 text-center">{comic.title}</div>
+        <div className="p-0 text-center">{comic.title}</div>
       </button>
     </div>
   );

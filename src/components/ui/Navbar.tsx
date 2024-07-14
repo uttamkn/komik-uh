@@ -47,7 +47,7 @@ const Navbar: React.FC<navProps> = ({ isProfile, filterComics }) => {
           />
         </div>
       )}
-      <div className="flex ml-auto space-x-4 text-secondary font-roboto">
+      <div className="flex ml-auto space-x-4 text-gray-300 font-roboto">
         <Gravatar
           email={user?.email || ""}
           size={40}
