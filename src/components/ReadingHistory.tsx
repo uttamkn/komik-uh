@@ -1,4 +1,5 @@
 import { Comic, ReadingProgress } from "../api/types";
+import { useNavigate } from "react-router-dom";
 
 type ReadingHistoryProps = {
   comics: Comic[];
@@ -9,6 +10,11 @@ const ReadingHistory: React.FC<ReadingHistoryProps> = ({
   comics,
   readingProgress,
 }) => {
+  const navigate = useNavigate();
+  const handleClick = (id: number) => {
+    navigate(`/comic/${id}`);
+  };
+
   return (
     <div className="p-4 bg-white rounded-lg shadow-md mt-3">
       {readingProgress.length > 0 ? (
@@ -17,9 +23,10 @@ const ReadingHistory: React.FC<ReadingHistoryProps> = ({
             (comic) => comic.id === progress.bookrepo_id
           );
           return (
-            <div
+            <button
               key={progress.bookrepo_id}
-              className="flex justify-between gap-5 items-center p-3 border-b border-gray-200"
+              className="w-full flex justify-between items-center p-3 border-b border-gray-200"
+              onClick={() => handleClick(progress.bookrepo_id)}
             >
               <div>
                 <div className="text-lg font-semibold">{comic?.title}</div>
@@ -28,7 +35,7 @@ const ReadingHistory: React.FC<ReadingHistoryProps> = ({
               <div className="text-sm text-gray-600">
                 Page {progress.page_num}
               </div>
-            </div>
+            </button>
           );
         })
       ) : (
