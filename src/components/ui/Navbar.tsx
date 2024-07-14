@@ -9,7 +9,7 @@ type navProps = {
 };
 
 const Navbar: React.FC<navProps> = ({ isProfile, filterComics }) => {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,6 +18,7 @@ const Navbar: React.FC<navProps> = ({ isProfile, filterComics }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    updateUser(null);
     navigate("/auth");
   };
 
