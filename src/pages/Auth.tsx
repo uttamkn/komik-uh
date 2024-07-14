@@ -1,9 +1,25 @@
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "../context/UserContext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Auth: React.FC = () => {
+  const { user, loading } = useAuth();
   const [isSignIn, setIsSignIn] = useState<boolean>(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loading) {
+      toast.loading("Loading...");
+    } else {
+      toast.dismiss();
+      if (user) {
+        navigate("/");
+      }
+    }
+  }, [loading, user]);
 
   const switchToSignUp = () => {
     setIsSignIn(false);
