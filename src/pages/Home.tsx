@@ -20,6 +20,8 @@ const Home: React.FC = () => {
       toast.dismiss();
       if (!user) {
         navigate("/auth");
+      } else {
+        toast.success(`Welcome back, ${user.username}!`);
       }
     }
   }, [loading, user]);
