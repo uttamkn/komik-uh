@@ -30,3 +30,10 @@ export type Comment_t = {
   };
   username: string;
 };
+
+export type ReadingProgress = {
+  id: number;
+  bookrepo_id: number;
+  page_num: number;
+  user_id: number;
+};

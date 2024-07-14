@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { getToken } from "../api/utils";
-import { User } from "../types";
+import { getToken } from "../api/auth";
+import { User } from "../api/types";
 
 const UserContext = createContext<any>({});
 

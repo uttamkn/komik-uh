@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Comic } from "../../types.ts";
-import { getThumbnailUrl } from "../../api/utils.ts";
+import { Comic } from "../../api/types.ts";
+import { getThumbnailUrl } from "../../api/comic.ts";
 import { useNavigate } from "react-router-dom";
 
 type ComicCardProps = {

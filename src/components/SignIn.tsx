@@ -3,7 +3,7 @@ import Input from "./ui/Input.tsx";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 import axios from "axios";
-import { UserSignIn } from "../types.ts";
+import { UserSignIn } from "../api/types.ts";
 
 type SignInProps = {
   switchToSignUp: () => void;

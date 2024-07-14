@@ -4,9 +4,8 @@ import { useAuth } from "../context/UserContext";
 import toast from "react-hot-toast";
 import Navbar from "../components/ui/Navbar.tsx";
 import ComicsContainer from "../components/ComicsContainer";
-import axios from "axios";
-import { getToken } from "../api/utils";
-import { Comic, User } from "../types.ts";
+import { fetchComics } from "../api/comic.ts";
+import { Comic, User } from "../api/types.ts";
 
 const Home: React.FC = () => {
   const { user, loading }: { user: User; loading: boolean } = useAuth();
@@ -21,28 +20,20 @@ const Home: React.FC = () => {
       toast.dismiss();
       if (!user) {
         navigate("/auth");
-      } else {
-        toast.success(`Welcome, ${user.username}!`);
       }
     }
   }, [loading, user]);
 
   useEffect(() => {
     if (!user) return;
-    const fetchComics = axios.get("/comics", {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
 
-    fetchComics
-      .then((res) => {
-        setComics(res.data);
-        setFilteredComics(res.data);
+    fetchComics()
+      .then((data) => {
+        setComics(data);
+        setFilteredComics(data);
       })
       .catch((err) => {
-        console.log("Error fetching comics:");
-        console.log(err);
+        console.error(err);
       });
   }, [user]);
 

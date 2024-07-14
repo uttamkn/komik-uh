@@ -1,19 +1,6 @@
 import axios from "axios";
-
-export const getToken = (): string => {
-  const tokenString = localStorage.getItem("token");
-  let token: string | null = null;
-  if (tokenString) {
-    try {
-      token = JSON.parse(tokenString);
-    } catch (error) {
-      console.error("Failed to parse token:", error);
-      token = null;
-    }
-  }
-
-  return token || "";
-};
+import { ReadingProgress } from "./types";
+import { getToken } from "./auth";
 
 export const putCurrentPage = async (
   userId: number,
@@ -59,22 +46,21 @@ export const getCurrentPage = async (
   return currentPage;
 };
 
-export const getThumbnailUrl = async (comicId: number): Promise<string> => {
-  let url: string = "";
+export const getReadingProgress = async (
+  userId: number
+): Promise<ReadingProgress[]> => {
+  let progress: ReadingProgress[] = [];
 
   try {
-    const response = await axios.get(`/comics/thumbnails/${comicId}`, {
+    const response = await axios.get(`/log_progress/user/${userId}`, {
       headers: {
         Authorization: `Bearer ${getToken()}`,
       },
-      responseType: "blob",
     });
-
-    const blob = new Blob([response.data], { type: "image/jpeg" });
-    url = URL.createObjectURL(blob);
+    progress = response.data.readingprogress;
   } catch (error) {
-    console.error("Error fetching thumbnail:", error);
+    console.error("Error fetching reading progress:", error);
   }
 
-  return url;
+  return progress;
 };

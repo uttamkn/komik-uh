@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from "react";
 import Input from "./ui/Input.tsx";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { UserSignUp } from "../types.ts";
+import { UserSignUp } from "../api/types.ts";
 
 type SignUpProps = {
   switchToSignIn: () => void;

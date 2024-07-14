@@ -1,8 +1,8 @@
 import Comment from "./ui/Comment";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Comment_t } from "../types";
-import { getToken } from "../api/utils";
+import { Comment_t } from "../api/types";
+import { getToken } from "../api/auth";
 
 const Comments: React.FC<{ bookid: string | undefined; userid: number }> = ({
   bookid,

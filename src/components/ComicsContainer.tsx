@@ -1,4 +1,4 @@
-import { Comic } from "../types.ts";
+import { Comic } from "../api/types.ts";
 import ComicCard from "./ui/ComicCard.tsx";
 
 type ComicsContainerProps = {
